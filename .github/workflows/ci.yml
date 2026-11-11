@@ -1,0 +1,22 @@
+name: .NET SDK
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: pub-hk-ubuntu-24.04-ip
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: true
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - run: dotnet format --verify-no-changes
+      - run: dotnet test
